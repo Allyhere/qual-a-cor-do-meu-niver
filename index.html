@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./app/js/main.js"></script>
+    <link rel="stylesheet" href="app/css/main.css" />
+    <title>Qual a cor do meu aniversário?</title>
+  </head>
+  <body>
+    <section id="app">
+      <h1 class="title">Qual a cor do meu aniversário?</h1>
+      <div class="data flex--vertical">
+        <form action="post" class="color flex--vertical">
+          <label for="color" class="color__label">Data do seu niver</label>
+          <p class="color__desc">
+            Escreva dia, mês e ano, tá?
+          </p>
+          <input
+            type="date"
+            name="color"
+            id="color"
+            class="color__input"
+            placeholder="DD / MM / AA"
+            required
+            pattern="[0-9]{2}/[0-9]{2}/[0-9]{2}"
+            v-model="colorVar"
+            @focusout="displayColor"
+          />
+        </form>
+        <div class="result" v-if="hex">
+          <h2 class="result__title">
+            Sua cor é <span class="result__color">{{name}}</span>
+          </h2>
+          <p class="result__rgb">RGB: {{rgb}}</p>
+          <p class="result__hex">Hexadecimal: {{hex}}</p>
+        </div>
+        <button class="btn__tweet" :class="hex ? '' : 'btn__tweet--disabled'">
+          <a
+            class="twitter-share-button"
+            :href="href"
+          >
+            Tweet
+          </a>
+        </button>
+      </div>
+      <div class="colorbox">
+        <h2 class="colorbox__name">{{name}}</h2>
+        <div class="colorbox__display" :style="bg" v-show="hex"></div>
+        <p class="colorbox__hex">{{hex}}</p>
+      </div>
+      <footer class="credits">
+        Feito com ❤ por&nbsp;<a href="http://github.com/allyhere"> Camilo M.</a>
+      </footer>
+    </section>
+  </body>
+</html>
+
+<script>
+  const vm = new Vue({
+    el: "#app",
+    data: {
+      name: "",
+      colorVar: "#000000",
+      rgb: "",
+      hex: "",
+      bg: "",
+      url: String(window.location.href),
+      href:`https://twitter.com/intent/tweet?text=A cor do meu aniversário é ${this.name}, qual é a sua? Descubra em ${this.url}`,
+    },
+    methods: {
+      displayColor() {
+        let color = this.colorVar;
+        let reverted = color.split("-").reverse();
+        let [dia, mes, ano] = reverted;
+
+        this.colorVar = String([dia, mes, ano.slice(2, 4)].join(""));
+        this.fetchColor();
+        console.log(this.colorVar);
+      },
+      fetchColor() {
+        fetch(`https://www.thecolorapi.com/id?hex=${this.colorVar}`)
+          .then((res) => res.json())
+          .then((json) => {
+            this.rgb = json.rgb.value.slice(3, json.rgb.length);
+            this.hex = json.hex.value;
+            this.bg = `background-color:${this.hex}`;
+            this.name = json.name.value;
+          });
+      },
+    },
+  });
+</script>

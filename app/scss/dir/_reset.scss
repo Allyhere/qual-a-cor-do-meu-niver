@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+$base-size: 16px;
+$base-color: #252525;
+$secondary-color: #fafafa;
+$base-bg: #9d22e4;
+$twitter: #00acee;
+$white: #ffffff;
+$base-pd: 18px;
+$font: "Segoe UI";
+$title: 18px;
+$desc: 14px;
+
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: $base-color;
+}
+
+button,
+input {
+  border: none;
+}
+
+button:focus, input:focus{
+  outline-color: lighten($base-bg, 2%);
+}
