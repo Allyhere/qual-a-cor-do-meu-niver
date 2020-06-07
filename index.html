@@ -37,10 +37,7 @@
           <p class="result__hex">Hexadecimal: {{hex}}</p>
         </div>
         <button class="btn__tweet" :class="hex ? '' : 'btn__tweet--disabled'">
-          <a
-            class="twitter-share-button"
-            :href="href"
-          >
+          <a class="twitter-share-button" :href="href" target="_blank">
             Tweet
           </a>
         </button>
@@ -66,7 +63,7 @@
       rgb: "",
       hex: "",
       bg: "",
-      href:`https://twitter.com/intent/tweet?text=A cor do meu aniversário é ${this.name}, qual é a sua? Descubra em ${String(window.location.href)}`,
+      href: "",
     },
     methods: {
       displayColor() {
@@ -86,7 +83,12 @@
             this.hex = json.hex.value;
             this.bg = `background-color:${this.hex}`;
             this.name = json.name.value;
+            this.makeLink(json.name.value);
           });
+
+      },
+      makeLink(name) {
+        this.href = `https://twitter.com/intent/tweet?text=A cor do meu aniversário é ${name}, qual é a sua? Descubra em ${String(window.location.href)}`;
       },
     },
   });
