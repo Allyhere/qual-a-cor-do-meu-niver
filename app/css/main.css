@@ -85,7 +85,8 @@ button:focus, input:focus {
 
 .result {
   margin-top: 45px;
-  transition: .6s ease-in-out; }
+  opacity: 0;
+  animation: opacify .6s forwards ease-in .5s; }
   .result * + * {
     margin-top: 8px; }
   .result__title {
@@ -117,7 +118,9 @@ button:focus, input:focus {
 .colorbox {
   grid-area: 2/2/2/3;
   margin-top: 45px;
-  min-width: 90%; }
+  min-width: 90%;
+  animation: opacify .6s forwards ease-in .5s;
+  opacity: 0; }
   .colorbox__name, .colorbox__hex {
     font-size: 18px; }
   .colorbox__display {
@@ -138,6 +141,12 @@ button:focus, input:focus {
   .credits a {
     color: #252525;
     text-align: center; }
+
+@keyframes opacify {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
 @media screen and (max-width: 600px) {
   #app {

@@ -45,9 +45,9 @@
           </a>
         </button>
       </div>
-      <div class="colorbox">
+      <div class="colorbox" v-show="hex">
         <h2 class="colorbox__name">{{name}}</h2>
-        <div class="colorbox__display" :style="bg" v-show="hex"></div>
+        <div class="colorbox__display" :style="bg"></div>
         <p class="colorbox__hex">{{hex}}</p>
       </div>
       <footer class="credits">
