@@ -66,8 +66,7 @@
       rgb: "",
       hex: "",
       bg: "",
-      url: String(window.location.href),
-      href:`https://twitter.com/intent/tweet?text=A cor do meu aniversário é ${this.name}, qual é a sua? Descubra em ${this.url}`,
+      href:`https://twitter.com/intent/tweet?text=A cor do meu aniversário é ${this.name}, qual é a sua? Descubra em ${String(window.location.href)}`,
     },
     methods: {
       displayColor() {
